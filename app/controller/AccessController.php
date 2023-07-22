@@ -4,12 +4,11 @@ require_once(app . 'model/AccessModel.php');
 
 class AccessController extends Controller
 {
-    private $table = "Access";
     private $model;
 
     public function __construct() {
         parent::__construct();
-        $this->model = new AccessModel($this->table);
+        $this->model = new AccessModel();
     }
 
     public function index()
