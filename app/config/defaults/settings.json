@@ -1,0 +1,19 @@
+{
+    "local": {
+      "database": {
+        "DB_HOST": "localhost",
+        "DB_USER": "root",
+        "DB_NAME": "fairmoney",
+        "DB_PASS": ""
+      }
+    },
+    "live": {
+      "database": {
+        "DB_HOST": "livehost",
+        "DB_USER": "liveuser",
+        "DB_NAME": "live_db",
+        "DB_PASS": "live_password"
+      }
+    }
+  }
+  

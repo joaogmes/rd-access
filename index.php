@@ -1,16 +1,16 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
+define("root", __DIR__ . '/');
+define("app", root . '/app/');
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+require root . '/vendor/autoload.php';
+require app . 'autoload.php';
+
 use Slim\Factory\AppFactory;
 
 $app = AppFactory::create();
 
-$app->get('/', function (Request $request, Response $response) {
-    $response->getBody()->write("API is working on port 8080!");
-    return $response;
-});
+include_once(app . 'route/web.php');
+include_once(app . 'route/api.php');
 
 $app->run();
