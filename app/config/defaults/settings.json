@@ -1,7 +1,7 @@
 {
   "database": {
     "DB_HOST": "localhost",
-    "DB_USER": "root",
+    "DB_USER": "rd",
     "DB_NAME": "RdAccessTerminal",
     "DB_PASS": "access"
   }
