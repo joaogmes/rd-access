@@ -1,6 +1,10 @@
 {include file="bs-header.tpl"}
 
 <h1>INDEX</h1>
-{$x}
-
+{* {$accessList|var_dump} *}
+<ul>
+    {foreach from=$accessList.results item=entity}
+        <li>{$entity->code}</li>
+    {/foreach}
+</ul>
 {include file="bs-footer.tpl"}

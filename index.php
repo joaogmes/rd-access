@@ -1,7 +1,7 @@
 <?php
 
 define("root", __DIR__ . '/');
-define("app", root . '/app/');
+define("app", root . 'app/');
 
 require root . '/vendor/autoload.php';
 require app . 'autoload.php';
