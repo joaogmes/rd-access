@@ -18,4 +18,8 @@ class AccessController extends Controller
         $this->display('index.tpl');
     }
 
+    public function searchByCode($code){
+        return $this->model->get("code", $code);
+    }
+
 }

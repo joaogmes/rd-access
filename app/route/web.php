@@ -11,3 +11,15 @@ $app->get('/', function (Request $request, Response $response) {
     // $response->getBody()->write($testVal);
     return $response;
 });
+
+$app->get('/access/{id}', function (Request $request, Response $response, array $args) {
+    var_dump($args);
+    die('teste');
+    // return $response;
+});
+
+$app->get('/search/{field}/{value}', function (Request $request, Response $response, array $args) {
+    // $model = new Model("Access");
+    $response->getBody()->write("isso é um teste");
+    return $response;
+});

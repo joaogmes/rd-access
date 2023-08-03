@@ -17,4 +17,12 @@ class AccessModel
     {
         return $this->dao->listEntities();
     }
+
+    public function get($key, $value){
+        return $this->dao->getEntity($key, $value);
+    }
+
+    public function create(){
+        return $this->dao->inserEntity();
+    }
 }

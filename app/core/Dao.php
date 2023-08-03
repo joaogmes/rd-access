@@ -44,20 +44,39 @@ class Dao extends Config
         return $entity;
     }
 
-    public function listEntities()
+    public function getEntity($key, $value)
     {
-        $entities = [];
-        $data = $this->database->prepare("SELECT * FROM {$this->table}");
+        // die("SELECT * FROM {$this->table} WHERE {$this->table}.`{$key}` = '{$value}'");
+        $data = $this->database->prepare("SELECT * FROM {$this->table} WHERE {$this->table}.`{$key}` = '{$value}'");
         $data->execute();
         if ($data->rowCount() > 0) {
             while ($info = $data->fetch(PDO::FETCH_ASSOC)) {
-                $entities[] = (object) $info;
+                $entity = (object) $info;
+                return $entity;
             }
         }
-        return ["total" => $data->rowCount(), "results" => $entities];
+        return false;
     }
 
     public function inserEntity($entity){
+        $assoc = get_object_vars ($entity);
+        
+        $queryFields = "(";
+        $queryValues = "("; 
+        
+        foreach($assoc as $field => $value){
+            $queryFields .= '`' . $field . '` ,';
+            $queryValues .=  '"' . $field . '" ,';
+        }
 
+        substr($queryFields, 0, -2);
+        substr($queryValues, 0, -2);
+
+        $queryFields .= ")";
+        $queryValues .= ")";
+
+        print_r($queryFields);
+        print_r($queryValues);
+        die;
     }
 }
