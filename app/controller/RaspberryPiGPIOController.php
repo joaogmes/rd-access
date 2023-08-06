@@ -6,6 +6,8 @@ class RaspberryPiGPIOController
     private $greenLightPin = 19; /* 35 phisicaly, 19 on GPIO mapping */
 
     private $solenoidPin = 5; /* 29 phisicaly, 5 on GPIO mapping */
+    private $microPin = 5; /* 29 phisicaly, 5 on GPIO mapping */
+    
 
     public function __construct()
     {
