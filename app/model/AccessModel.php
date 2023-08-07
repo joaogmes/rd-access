@@ -25,4 +25,12 @@ class AccessModel
     public function create(){
         return $this->dao->inserEntity();
     }
+
+    public function runQuery($query){
+        return $this->dao->query($query);
+    }
+    
+    public function runQueryInsert($query){
+        return $this->dao->queryInsert($query);
+    }
 }

@@ -58,13 +58,14 @@ class Dao extends Config
         return false;
     }
 
-    public function inserEntity($entity){
-        $assoc = get_object_vars ($entity);
-        
+    public function inserEntity($entity)
+    {
+        $assoc = get_object_vars($entity);
+
         $queryFields = "(";
-        $queryValues = "("; 
-        
-        foreach($assoc as $field => $value){
+        $queryValues = "(";
+
+        foreach ($assoc as $field => $value) {
             $queryFields .= '`' . $field . '` ,';
             $queryValues .=  '"' . $field . '" ,';
         }
@@ -78,5 +79,32 @@ class Dao extends Config
         print_r($queryFields);
         print_r($queryValues);
         die;
+    }
+
+    public function query($query)
+    {
+        try {
+            $data = $this->database->prepare("{$query}");
+            $data->execute();
+            $results = [];
+            while ($info = $data->fetch(PDO::FETCH_ASSOC)) {
+                $results[] = (object) $info;
+            }
+
+            return ["total" => $data->rowCount(), "results" => $results];
+        } catch (Exception $e) {
+            return ["error" => $e->getMessage()];
+        }
+    }
+
+    public function queryInsert($query)
+    {
+        try {
+            $data = $this->database->prepare("{$query}");
+            $data->execute();
+            return $this->database->lastInsertId();
+        } catch (Exception $e) {
+            return ["error" => $e->getMessage()];
+        }
     }
 }
