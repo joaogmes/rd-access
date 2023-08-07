@@ -6,12 +6,12 @@ class RaspberryPiGPIOController
     private $greenLightPin = 19; /* 35 phisicaly, 19 on GPIO mapping */
 
     private $solenoidPin = 5; /* 29 phisicaly, 5 on GPIO mapping */
-    private $microPin = 5; /* 29 phisicaly, 5 on GPIO mapping */
+    private $microPin = 26; /* 37 phisicaly, 26 on GPIO mapping */
     
 
     public function __construct()
     {
-        exec('gpio mode all out');
+        // exec('gpio mode all out');
     }
 
     public function togglePin($pinNumber, $mode, $time = 0)
@@ -70,6 +70,7 @@ class RaspberryPiGPIOController
     }
     function throwError($error)
     {
+        return true;
         switch ($error) {
             case "invalid": 
                 /* Code format is no accepted */
@@ -90,6 +91,7 @@ class RaspberryPiGPIOController
                 $this->togglePin($this->redLightPin, "on", 0.2);
                 break;
         }
+        return true;
     }
 }
 
