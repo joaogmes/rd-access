@@ -4,7 +4,6 @@ FLUSH PRIVILEGES;
 CREATE USER 'rd'@'localhost' IDENTIFIED BY 'access';
 GRANT ALL PRIVILEGES ON *.* TO 'rd'@'localhost';
 FLUSH PRIVILEGES;
-EXIT;
 EOF
 
 # MySQL credentials
