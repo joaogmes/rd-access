@@ -26,14 +26,14 @@ CREATE TABLE IF NOT EXISTS `Authorization` (
 
 CREATE TABLE IF NOT EXISTS `Access` (
     `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `macAddress` varchar(250),
+    `macAddress` varchar(20),
     `authorization` BIGINT UNSIGNED,
-    `code` varchar(250) UNIQUE,
+    `code` varchar(100) UNIQUE,
     `creationDate` datetime
 );
 
 CREATE TABLE IF NOT EXISTS `GlobalAccess` (
-    `code` varchar(80) PRIMARY KEY,
+    `code` varchar(100) PRIMARY KEY,
     `authorization` varchar(250),
     `macAddress` varchar(250),
     `accessId` int,
