@@ -6,6 +6,6 @@ AFTER
 	`code`;
 
 ALTER TABLE
-	`Authorization` CHANGE COLUMN `corePrefix` `codePrefix` VARCHAR(250) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci'
+	`Authorization` CHANGE COLUMN `corePrefix` `codePrefix` VARCHAR(250) NULL DEFAULT NULL
 AFTER
 	`codeCore`;
