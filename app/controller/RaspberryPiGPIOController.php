@@ -81,20 +81,20 @@ class RaspberryPiGPIOController
             case "invalid":
                 /* Code format is no accepted */
                 /* Blink red lights 2 times */
-                $this->togglePin($this->redLightPin, "on", 0.2);
+                $this->togglePin($this->redLightPin, "on", 1);
                 sleep(0.5);
-                $this->togglePin($this->redLightPin, "on", 0.2);
+                $this->togglePin($this->redLightPin, "on", 1);
                 break;
             case "repeated":
                 /* Code format is no accepted */
                 /* Blink red lights 4 times */
-                $this->togglePin($this->redLightPin, "on", 0.2);
+                $this->togglePin($this->redLightPin, "on", 1);
                 sleep(0.5);
-                $this->togglePin($this->redLightPin, "on", 0.2);
+                $this->togglePin($this->redLightPin, "on", 1);
                 sleep(0.5);
-                $this->togglePin($this->redLightPin, "on", 0.2);
+                $this->togglePin($this->redLightPin, "on", 1);
                 sleep(0.5);
-                $this->togglePin($this->redLightPin, "on", 0.2);
+                $this->togglePin($this->redLightPin, "on", 1);
                 break;
         }
         return true;
