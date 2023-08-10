@@ -16,6 +16,8 @@ function logMessage($message, $tabs = 1, $record = false)
     echo "{$tabulation} # >_  {$message}" . PHP_EOL;
 }
 
+$gpioController = new RaspberryPiGPIOController();
+
 while (true) {
     $codeString = trim(readline('# >_  Enter ticket code: '));
 
@@ -28,7 +30,6 @@ while (true) {
     $accessController = new AccessController();
 
     logMessage("Reading '{$codeString}'...");
-    $gpioController = new RaspberryPiGPIOController();
 
     logMessage("Checking pattern...", 2);
     $hasAuth = $accessController->checkAuth($codeString);

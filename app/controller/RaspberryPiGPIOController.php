@@ -7,7 +7,7 @@ class RaspberryPiGPIOController
 
     private $solenoidPin = 21; /* SOLENOIDE BCM 5 GPIO 21 P 29 */
     private $microPin = 26; /* MICRO BCM 26 GPIO 25 P 37 */
-    
+
 
     public function __construct()
     {
@@ -16,8 +16,8 @@ class RaspberryPiGPIOController
         exec("gpio mode {$this->microPin} out");
 
         exec("gpio mode {$this->solenoidPin} in");
-	$this->togglePin($this->redLightPin, "on");
-	$this->togglePin($this->greenLightPin, "on");
+        $this->togglePin($this->redLightPin, "on");
+        $this->togglePin($this->greenLightPin, "on");
     }
 
     public function togglePin($pinNumber, $mode, $time = 0)
@@ -78,14 +78,14 @@ class RaspberryPiGPIOController
     {
         return true;
         switch ($error) {
-            case "invalid": 
+            case "invalid":
                 /* Code format is no accepted */
                 /* Blink red lights 2 times */
                 $this->togglePin($this->redLightPin, "on", 0.2);
                 sleep(0.5);
                 $this->togglePin($this->redLightPin, "on", 0.2);
                 break;
-            case "repeated": 
+            case "repeated":
                 /* Code format is no accepted */
                 /* Blink red lights 4 times */
                 $this->togglePin($this->redLightPin, "on", 0.2);
