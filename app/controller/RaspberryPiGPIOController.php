@@ -23,7 +23,7 @@ class RaspberryPiGPIOController
     public function togglePin($pinNumber, $mode, $time = 0)
     {
         if ($mode !== 'on' && $mode !== 'off') {
-            echo "Invalid mode. Use 'on' or 'off' to control the pin.\n";
+            print("Invalid mode. Use 'on' or 'off' to control the pin.\n");
             return;
         }
         
@@ -77,7 +77,6 @@ class RaspberryPiGPIOController
     }
     function throwError($error)
     {
-        return true;
         switch ($error) {
             case "invalid":
                 /* Code format is no accepted */
