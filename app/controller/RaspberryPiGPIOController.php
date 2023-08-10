@@ -16,6 +16,8 @@ class RaspberryPiGPIOController
         exec("gpio mode {$this->microPin} out");
 
         exec("gpio mode {$this->solenoidPin} in");
+	$this->togglePin($this->redLightPin, "on");
+	$this->togglePin($this->greenLightPin, "on");
     }
 
     public function togglePin($pinNumber, $mode, $time = 0)

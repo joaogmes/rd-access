@@ -13,7 +13,7 @@ class Controller
 
     private function initializeSmarty()
     {
-        require_once(root . '/vendor/autoload.php');
+        require_once(root . 'vendor/autoload.php');
 
         $this->smarty = new \Smarty();
         $this->smarty->setTemplateDir(app . 'view/templates');
