@@ -2,16 +2,20 @@
 
 class RaspberryPiGPIOController
 {
-    private $redLightPin = 13; /* 33 phisicaly, 19 on GPIO mapping */
-    private $greenLightPin = 19; /* 35 phisicaly, 19 on GPIO mapping */
+    private $redLightPin = 13; /* LUZ VERMELHA BCM 19 GPIO 24 P 35 */
+    private $greenLightPin = 19; /* LUZ VERMELHA BCM 13 GPIO 22 P 33 */
 
-    private $solenoidPin = 5; /* 29 phisicaly, 5 on GPIO mapping */
-    private $microPin = 26; /* 37 phisicaly, 26 on GPIO mapping */
+    private $solenoidPin = 21; /* SOLENOIDE BCM 5 GPIO 21 P 29 */
+    private $microPin = 26; /* MICRO BCM 26 GPIO 25 P 37 */
     
 
     public function __construct()
     {
-        // exec('gpio mode all out');
+        exec("gpio mode {$this->redLightPin} out");
+        exec("gpio mode {$this->greenLightPin} out");
+        exec("gpio mode {$this->microPin} out");
+
+        exec("gpio mode {$this->solenoidPin} in");
     }
 
     public function togglePin($pinNumber, $mode, $time = 0)
