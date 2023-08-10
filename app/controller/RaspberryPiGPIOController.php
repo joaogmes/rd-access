@@ -89,11 +89,11 @@ class RaspberryPiGPIOController
                 /* Code format is no accepted */
                 /* Blink red lights 4 times */
                 $this->togglePin($this->redLightPin, "on", 1);
-                sleep(0.5);
+                sleep(1);
                 $this->togglePin($this->redLightPin, "on", 1);
-                sleep(0.5);
+                sleep(1);
                 $this->togglePin($this->redLightPin, "on", 1);
-                sleep(0.5);
+                sleep(1);
                 $this->togglePin($this->redLightPin, "on", 1);
                 break;
         }
