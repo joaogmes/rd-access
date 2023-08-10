@@ -26,14 +26,14 @@ class RaspberryPiGPIOController
             print("Invalid mode. Use 'on' or 'off' to control the pin.\n");
             return;
         }
-        
+
         $command = "gpio write {$pinNumber} " . ($mode === 'on' ? '1' : '0');
         print(PHP_EOL. $command . PHP_EOL);
         exec($command);
 
         if ($time > 0) {
             sleep($time);
-            $this->togglePin($pinNumber, $mode, 0);
+            $this->togglePin($pinNumber, ($mode === 'on' ? 'off' : 'on'), 0);
         }
     }
 
