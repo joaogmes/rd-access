@@ -1,6 +1,6 @@
 <?php
 
-require_once(app . '/core/Dao.php');
+require_once(app . '/dao/AccessDao.php');
 
 class AccessModel
 {
@@ -10,7 +10,7 @@ class AccessModel
 
     public function __construct()
     {
-        $this->dao = new Dao($this->table);
+        $this->dao = new AccessDao($this->table);
     }
 
     public function verifyAuthentication($code)

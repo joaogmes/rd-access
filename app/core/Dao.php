@@ -59,16 +59,30 @@ class Dao extends Settings
         }
     }
 
-    public function simpleFilter($table, $field, $param)
+    public function execute($query)
     {
-        $data = $this->database->prepare("SELECT * FROM {$table} WHERE {$table}.`{$field}` = '{$param}'");
-        $data->execute();
-        if ($data->rowCount() > 0) {
-            while ($info = $data->fetch(PDO::FETCH_ASSOC)) {
-                $entity = (object) $info;
-                return $entity;
-            }
+        try {
+            $data = $this->database->prepare("{$query}");
+            $data->execute();
+            return true;
+        } catch (Exception $e) {
+            return ["error" => $e->getMessage()];
         }
-        return false;
+    }
+
+    public function simpleSearch($table, $field, $param)
+    {
+        try {
+            $data = $this->database->prepare("SELECT * FROM {$table} WHERE {$table}.`{$field}` = '{$param}'");
+            $data->execute();
+            if ($data->rowCount() > 0) {
+                while ($info = $data->fetch(PDO::FETCH_ASSOC)) {
+                    $entity = (object) $info;
+                    return $entity;
+                }
+            }
+        } catch (Exception $e) {
+            return ["error" => $e->getMessage()];
+        }
     }
 }

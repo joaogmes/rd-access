@@ -12,15 +12,8 @@ class ConfigController extends Controller
         $this->model = new ConfigModel();
     }
 
-    public function index()
+    public function checkSetup()
     {
-        $list = $this->model->list();
-        $this->assign("accessList", $list);
-        $this->display('index.tpl');
-    }
-
-    public function getx($code)
-    {
-        return $this->model->get("code", $code);
+        return $this->model->verifyTerminalSetup();
     }
 }

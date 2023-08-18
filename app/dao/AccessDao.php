@@ -2,7 +2,7 @@
 
 require_once(app . '/core/Dao.php');
 
-class ConfigDao extends Dao
+class AccessDao extends Dao
 {
 
     public function __construct($table)
