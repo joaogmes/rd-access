@@ -1,0 +1,8 @@
+# Setup:
+
+Run /setup.sh to install all software required
+Then run composer install to install all code dependencies
+
+Create a mysql user called rd with the password access
+Then you can run  source /home/joao/rd-access/app/settings/defaults/db-creation.sql inside myslq console to install the database
+** If there are additional updates you may run  source /home/joao/rd-access/app/settings/defaults/db-updates.sql as well

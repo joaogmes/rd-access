@@ -13,24 +13,39 @@ class AccessModel
         $this->dao = new Dao($this->table);
     }
 
-    public function list()
+    public function verifyAuthentication($code)
     {
-        return $this->dao->listEntities();
+        $sql = "SELECT * FROM Authorization WHERE '{$code}' LIKE CONCAT(codePrefix, '%', codeSuffix) OR '{$code}' = CONCAT(codePrefix, codeCore, codeSuffix) ";
+        $auths = $this->dao->list($sql);
+        if ($auths['total'] > 0) {
+            return $auths['results'][0];
+        }
+        return false;
     }
 
-    public function get($key, $value){
-        return $this->dao->getEntity($key, $value);
+    public function searchAccessByCode($code)
+    {
+        return $this->dao->simpleFilter("Access", "code", $code);
     }
 
-    public function create(){
-        return $this->dao->inserEntity();
+    public function searchAccecssByCodeOnGlobalTable($code)
+    {
+        $sql = "SELECT * FROM GlobalAccess WHERE code = '{$code}'";
+        $globalSearch = $this->dao->list($sql);
+        if ($globalSearch['total'] > 0) {
+            return ["date" => $globalSearch["creationDate"], "id" => "accessId"];
+        }
+        return false;
     }
 
-    public function runQuery($query){
-        return $this->dao->query($query);
-    }
-    
-    public function runQueryInsert($query){
-        return $this->dao->queryInsert($query);
+    public function insertAccess($code, $authorization)
+    {
+        $macAddress = trim(shell_exec("/sbin/ifconfig eth0 | grep -oE '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'"));
+        $sql = "INSERT INTO Access (macAddress, authorization, code) VALUES ('{$macAddress}', '{$authorization->id}', '{$code}')";
+        $insertAccess = $this->dao->insert($sql);
+        if (is_numeric($insertAccess)) {
+            return true;
+        }
+        return false;
     }
 }

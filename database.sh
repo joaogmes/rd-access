@@ -11,8 +11,8 @@ mysql_user="rd"
 mysql_password="access"
 
 # Define the path to the SQL file
-creationFile="app/config/defaults/db-creation.sql"
-updateFile="app/config/defaults/db-updates.sql"
+creationFile="app/settings/defaults/db-creation.sql"
+updateFile="app/settings/defaults/db-updates.sql"
 
 # Execute the SQL file using MySQL
 mysql -u $mysql_user -p$mysql_password <$creationFile

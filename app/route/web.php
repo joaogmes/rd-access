@@ -4,6 +4,9 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 $app->get('/', function (Request $request, Response $response) {
+
+    $response->getBody()->write("zap zap");
+    die;
     include_once(app . 'controller/AccessController.php');
     $access = new AccessController();
     $access->index();
@@ -15,7 +18,6 @@ $app->get('/', function (Request $request, Response $response) {
 $app->get('/access/{id}', function (Request $request, Response $response, array $args) {
     var_dump($args);
     die('teste');
-    // return $response;
 });
 
 $app->get('/search/{field}/{value}', function (Request $request, Response $response, array $args) {

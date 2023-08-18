@@ -1,20 +1,16 @@
 <?php
 
-require_once(app  . '/config/Config.php');
+require_once(app  . '/settings/Settings.php');
 
-class Dao extends Config
+class Dao extends Settings
 {
     private $settings;
-    private $table;
-    private $entity;
     private $database;
 
     public function __construct($table)
     {
-        $this->table = $table;
         $this->settings = $this->getSettings();
         $this->database = $this->connect();
-        $this->entity = $this->createEntity();
     }
 
     public function connect()
@@ -35,53 +31,8 @@ class Dao extends Config
         }
     }
 
-    private function createEntity()
-    {
-        $entity = new stdClass();
-        foreach ($this->database->query("DESC {$this->table};") as $row) {
-            $entity->{$row['Field']} = null;
-        }
-        return $entity;
-    }
 
-    public function getEntity($key, $value)
-    {
-        // die("SELECT * FROM {$this->table} WHERE {$this->table}.`{$key}` = '{$value}'");
-        $data = $this->database->prepare("SELECT * FROM {$this->table} WHERE {$this->table}.`{$key}` = '{$value}'");
-        $data->execute();
-        if ($data->rowCount() > 0) {
-            while ($info = $data->fetch(PDO::FETCH_ASSOC)) {
-                $entity = (object) $info;
-                return $entity;
-            }
-        }
-        return false;
-    }
-
-    public function inserEntity($entity)
-    {
-        $assoc = get_object_vars($entity);
-
-        $queryFields = "(";
-        $queryValues = "(";
-
-        foreach ($assoc as $field => $value) {
-            $queryFields .= '`' . $field . '` ,';
-            $queryValues .=  '"' . $field . '" ,';
-        }
-
-        substr($queryFields, 0, -2);
-        substr($queryValues, 0, -2);
-
-        $queryFields .= ")";
-        $queryValues .= ")";
-
-        print_r($queryFields);
-        print_r($queryValues);
-        die;
-    }
-
-    public function query($query)
+    public function list($query)
     {
         try {
             $data = $this->database->prepare("{$query}");
@@ -97,7 +48,7 @@ class Dao extends Config
         }
     }
 
-    public function queryInsert($query)
+    public function insert($query)
     {
         try {
             $data = $this->database->prepare("{$query}");
@@ -106,5 +57,18 @@ class Dao extends Config
         } catch (Exception $e) {
             return ["error" => $e->getMessage()];
         }
+    }
+
+    public function simpleFilter($table, $field, $param)
+    {
+        $data = $this->database->prepare("SELECT * FROM {$table} WHERE {$table}.`{$field}` = '{$param}'");
+        $data->execute();
+        if ($data->rowCount() > 0) {
+            while ($info = $data->fetch(PDO::FETCH_ASSOC)) {
+                $entity = (object) $info;
+                return $entity;
+            }
+        }
+        return false;
     }
 }

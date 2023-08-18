@@ -28,7 +28,7 @@ class RaspberryPiGPIOController
         }
 
         $command = "gpio write {$pinNumber} " . ($mode === 'on' ? '1' : '0');
-        print(PHP_EOL. $command . PHP_EOL);
+        print(PHP_EOL . $command . PHP_EOL);
         exec($command);
 
         if ($time > 0) {

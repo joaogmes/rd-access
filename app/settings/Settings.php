@@ -1,6 +1,6 @@
 <?php
 
-class Config
+class Settings
 {
     public function getSettings()
     {
@@ -10,7 +10,7 @@ class Config
 
     private function loadSettingsFromFile()
     {
-        $file = app  . '/config/defaults/settings.json';
+        $file = app  . '/settings/defaults/settings.json';
         $settingsData = file_get_contents($file);
         $settings = json_decode($settingsData, true);
         return $settings ?? null;

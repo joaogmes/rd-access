@@ -11,19 +11,20 @@ class LoginController extends Controller
         return true;
     }
 
-    public function login($login, $password){
+    public function login($login, $password)
+    {
         $model = new LoginModel();
         return $model->authenticate($login, $password);
     }
 
-    private function checkSession(){
+    private function checkSession()
+    {
         $session = !isset($_SESSION) ? session_start() : true;
         $user = $_SESSION['user'] ?? false;
-        if($user){
+        if ($user) {
             Header('location: ./manager');
             exit;
         }
         return true;
     }
 }
-

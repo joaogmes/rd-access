@@ -9,3 +9,10 @@ ALTER TABLE
 	`Authorization` CHANGE COLUMN `corePrefix` `codePrefix` VARCHAR(250) NULL DEFAULT NULL
 AFTER
 	`codeCore`;
+
+ALTER TABLE
+	`Config`
+ADD
+	COLUMN `event` INT UNSIGNED NOT NULL DEFAULT 0
+AFTER
+	`macAddress`;

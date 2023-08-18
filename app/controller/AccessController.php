@@ -19,39 +19,23 @@ class AccessController extends Controller
         $this->display('index.tpl');
     }
 
-    public function searchByCode($code)
+    public function searchAccessByCode($code)
     {
-        return $this->model->get("code", $code);
+        return $this->model->searchAccessByCode($code);
     }
 
-    public function globalSearchByCode($code)
+    public function globalSearchAccessByCode($code)
     {
-        $sql = "SELECT * FROM GlobalAccess WHERE code = '{$code}'";
-        $globalSearch = $this->model->runQuery($sql);
-        if ($globalSearch['total'] > 0) {
-            return ["date" => $globalSearch["creationDate"], "id" => "accessId"];
-        }
-        return false;
+        return $this->model->searchAccecssByCodeOnGlobalTable($code);
     }
 
     public function checkAuth($code)
     {
-        $sql = "SELECT * FROM Authorization WHERE '{$code}' LIKE CONCAT(codePrefix, '%', codeSuffix) OR '{$code}' = CONCAT(codePrefix, codeCore, codeSuffix) ";
-        $auths = $this->model->runQuery($sql);
-        if ($auths['total'] > 0) {
-            return $auths['results'][0];
-        }
-        return false;
+        return $this->model->verifyAuthentication($code);
     }
 
     public function registerAccess($code, $authorization)
     {
-        $macAddress = trim(shell_exec("/sbin/ifconfig eth0 | grep -oE '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'"));
-        $sql = "INSERT INTO Access (macAddress, authorization, code) VALUES ('{$macAddress}', '{$authorization->id}', '{$code}')";
-        $insertAccess = $this->model->runQueryInsert($sql);
-        if (is_numeric($insertAccess)) {
-            return true;
-        }
-        return false;
+        return $this->model->insertAccess($code, $authorization);
     }
 }
