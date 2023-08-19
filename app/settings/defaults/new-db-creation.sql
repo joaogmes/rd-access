@@ -24,13 +24,14 @@ USE `RdAccessTerminal`;
 DROP TABLE IF EXISTS `Access`;
 CREATE TABLE IF NOT EXISTS `Access` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `macAddress` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `macAddress` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `authorization` bigint unsigned DEFAULT NULL,
-  `code` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `creationDate` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `code` (`code`),
+  KEY `macAddress` (`macAddress`),
   KEY `authorization` (`authorization`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -39,11 +40,11 @@ CREATE TABLE IF NOT EXISTS `Access` (
 -- Copiando estrutura para tabela RdAccessTerminal.Authorization
 CREATE TABLE IF NOT EXISTS `Authorization` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `ticket` varchar(250) DEFAULT NULL,
+  `ticket` varchar(150) DEFAULT NULL,
   `type` enum('allow','deny') DEFAULT 'allow',
-  `codeCore` varchar(250) DEFAULT NULL,
-  `codePrefix` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `codeSuffix` varchar(250) DEFAULT NULL,
+  `codeCore` varchar(150) DEFAULT NULL,
+  `codePrefix` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `codeSuffix` varchar(150) DEFAULT NULL,
   `rangeStart` int DEFAULT NULL,
   `rangeEnd` int DEFAULT NULL,
   `creationDate` datetime DEFAULT NULL,
@@ -56,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `Authorization` (
 
 -- Copiando estrutura para tabela RdAccessTerminal.Config
 CREATE TABLE IF NOT EXISTS `Config` (
-  `macAddress` varchar(250) NOT NULL,
+  `macAddress` varchar(150) NOT NULL,
   `event` int unsigned NOT NULL DEFAULT '0',
   `authMode` enum('free','ticket') DEFAULT 'ticket',
   `operationalMode` enum('in','out','both') DEFAULT 'in',
@@ -70,9 +71,9 @@ CREATE TABLE IF NOT EXISTS `Config` (
 
 -- Copiando estrutura para tabela RdAccessTerminal.GlobalAccess
 CREATE TABLE IF NOT EXISTS `GlobalAccess` (
-  `code` varchar(250) NOT NULL,
-  `authorization` varchar(250) DEFAULT NULL,
-  `macAddress` varchar(250) DEFAULT NULL,
+  `code` varchar(150) NOT NULL,
+  `authorization` varchar(150) DEFAULT NULL,
+  `macAddress` varchar(150) DEFAULT NULL,
   `accessId` int DEFAULT NULL,
   `creationDate` datetime DEFAULT NULL,
   PRIMARY KEY (`code`)
