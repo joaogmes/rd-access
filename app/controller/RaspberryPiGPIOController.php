@@ -71,11 +71,8 @@ class RaspberryPiGPIOController
             }
         }
 
-        return [
-            'pinNumber' => $pinNumber,
-            'state' => ($currentState === '1') ? 'on' : 'off',
-            'duration' => $endTime - $startTime
-        ];
+        $timeDiff = $endTime - $startTime;
+        echo "Time difference = ${timeDiff}";
     }
 
     public function throwError($error)
