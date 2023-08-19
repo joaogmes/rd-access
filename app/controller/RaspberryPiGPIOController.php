@@ -83,18 +83,18 @@ class RaspberryPiGPIOController
         switch ($error) {
             case "invalid":
                 for ($i = 0; $i < 3; $i++) {
-                    sleep(0.5);
+                    usleep(500000);
                     $this->write("red", "off");
-                    sleep(0.5);
+                    usleep(500000);
                     $this->write("red", "on");
                 }
                 break;
             case "repeated":
                 for ($i = 0; $i < 3; $i++) {
-                    sleep(0.5);
+                    usleep(500000);
                     $this->write("red", "off");
                     $this->write("green", "on");
-                    sleep(0.5);
+                    usleep(500000);
                     $this->write("red", "on");
                     $this->write("green", "off");
                 }
