@@ -49,3 +49,10 @@ ALTER TABLE
     `Access`
 ADD
     FOREIGN KEY (`authorization`) REFERENCES `Authorization` (`id`);
+
+CREATE IF NOT EXISTS TABLE `Log` (
+    `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `event` JSON NOT NULL,
+    `exception` TEXT NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+    PRIMARY KEY (`id`) USING BTREE
+) COLLATE = 'utf8mb4_0900_ai_ci' ENGINE = InnoDB;
