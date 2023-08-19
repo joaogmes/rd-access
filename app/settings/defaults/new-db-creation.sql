@@ -24,33 +24,26 @@ USE `RdAccessTerminal`;
 DROP TABLE IF EXISTS `Access`;
 CREATE TABLE IF NOT EXISTS `Access` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `macAddress` varchar(250) DEFAULT NULL,
+  `macAddress` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `authorization` bigint unsigned DEFAULT NULL,
-  `code` varchar(250) DEFAULT NULL,
+  `code` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `creationDate` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `code` (`code`),
   KEY `macAddress` (`macAddress`),
-  KEY `authorization` (`authorization`),
-  CONSTRAINT `Access_ibfk_1` FOREIGN KEY (`macAddress`) REFERENCES `Config` (`macAddress`),
-  CONSTRAINT `Access_ibfk_2` FOREIGN KEY (`authorization`) REFERENCES `Authorization` (`id`),
-  CONSTRAINT `Access_ibfk_3` FOREIGN KEY (`macAddress`) REFERENCES `Config` (`macAddress`),
-  CONSTRAINT `Access_ibfk_4` FOREIGN KEY (`authorization`) REFERENCES `Authorization` (`id`),
-  CONSTRAINT `Access_ibfk_5` FOREIGN KEY (`macAddress`) REFERENCES `Config` (`macAddress`),
-  CONSTRAINT `Access_ibfk_6` FOREIGN KEY (`authorization`) REFERENCES `Authorization` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `authorization` (`authorization`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- Exportação de dados foi desmarcado.
 
 -- Copiando estrutura para tabela RdAccessTerminal.Authorization
-DROP TABLE IF EXISTS `Authorization`;
 CREATE TABLE IF NOT EXISTS `Authorization` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `ticket` varchar(250) DEFAULT NULL,
   `type` enum('allow','deny') DEFAULT 'allow',
   `codeCore` varchar(250) DEFAULT NULL,
-  `codePrefix` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `codePrefix` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `codeSuffix` varchar(250) DEFAULT NULL,
   `rangeStart` int DEFAULT NULL,
   `rangeEnd` int DEFAULT NULL,
@@ -58,12 +51,11 @@ CREATE TABLE IF NOT EXISTS `Authorization` (
   `updateDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- Exportação de dados foi desmarcado.
 
 -- Copiando estrutura para tabela RdAccessTerminal.Config
-DROP TABLE IF EXISTS `Config`;
 CREATE TABLE IF NOT EXISTS `Config` (
   `macAddress` varchar(250) NOT NULL,
   `event` int unsigned NOT NULL DEFAULT '0',
@@ -73,12 +65,11 @@ CREATE TABLE IF NOT EXISTS `Config` (
   `creationDate` datetime DEFAULT CURRENT_TIMESTAMP,
   `updateDate` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`macAddress`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- Exportação de dados foi desmarcado.
 
 -- Copiando estrutura para tabela RdAccessTerminal.GlobalAccess
-DROP TABLE IF EXISTS `GlobalAccess`;
 CREATE TABLE IF NOT EXISTS `GlobalAccess` (
   `code` varchar(250) NOT NULL,
   `authorization` varchar(250) DEFAULT NULL,
@@ -86,18 +77,17 @@ CREATE TABLE IF NOT EXISTS `GlobalAccess` (
   `accessId` int DEFAULT NULL,
   `creationDate` datetime DEFAULT NULL,
   PRIMARY KEY (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- Exportação de dados foi desmarcado.
 
 -- Copiando estrutura para tabela RdAccessTerminal.Log
-DROP TABLE IF EXISTS `Log`;
 CREATE TABLE IF NOT EXISTS `Log` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `event` json NOT NULL,
   `exception` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- Exportação de dados foi desmarcado.
 
