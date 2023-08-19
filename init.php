@@ -19,7 +19,11 @@ $configuration = $configController->checkSetup();
 
 if ($configuration->authMode == "ticket") {
     while (true) {
-        $codeString = trim(readline('# >_  Enter ticket code: '));
+        if (isset($argv[1])) {
+            $codeString =$argv[1];
+        } else {
+            $codeString = trim(readline('# >_  Enter ticket code: '));
+        }
 
         if (is_null($codeString) || $codeString == "") {
             $scriptController->logMessage("Code is null, input a valid code '{$codeString}'");
