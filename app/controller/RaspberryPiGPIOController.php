@@ -84,7 +84,7 @@ class RaspberryPiGPIOController
             case "invalid":
                 for ($i = 0; $i < 3; $i++) {
                     $this->write("red", "off");
-                    usleep(1000);
+                    sleep(0.7);
                     $this->write("red", "on");
                 }
                 break;
@@ -92,16 +92,16 @@ class RaspberryPiGPIOController
                 for ($i = 0; $i < 3; $i++) {
                     $this->write("red", "off");
                     $this->write("green", "on");
-                    usleep(1000);
+                    sleep(0.7);
                     $this->write("green", "off");
                     $this->write("red", "on");
-                    usleep(1000);
+                    sleep(0.7);
                     $this->write("green", "on");
                     $this->write("red", "off");
-                    usleep(1000);
+                    sleep(0.7);
                     $this->write("green", "off");
                     $this->write("red", "on");
-                    usleep(1000);
+                    sleep(0.7);
                 }
                 break;
         }
