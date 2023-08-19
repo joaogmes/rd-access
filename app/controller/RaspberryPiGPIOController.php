@@ -59,11 +59,11 @@ class RaspberryPiGPIOController
 
     public function waitMicro()
     {
-        $currentState = exec("gpio read {$microPin}");
+        $currentState = exec("gpio read {$this->microPin}");
         $startTime = time();
 
         while (true) {
-            $newState = exec("gpio read {$pinNumber}");
+            $newState = exec("gpio read {$this->microPin}");
 
             if ($newState !== $currentState) {
                 $endTime = time();
