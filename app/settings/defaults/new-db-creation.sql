@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `GlobalAccess` (
 -- Copiando estrutura para tabela RdAccessTerminal.Log
 CREATE TABLE IF NOT EXISTS `Log` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `event` json NOT NULL,
+  `event` text NOT NULL,
   `exception` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
