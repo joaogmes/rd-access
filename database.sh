@@ -17,4 +17,4 @@ creationFile="app/settings/defaults/new-db-creation.sql"
 
 # Execute the SQL file using MySQL
 mysql -u $mysql_user -p$mysql_password <$creationFile
-mysql -u $mysql_user -p$mysql_password <$updateFile
+# mysql -u $mysql_user -p$mysql_password <$updateFile

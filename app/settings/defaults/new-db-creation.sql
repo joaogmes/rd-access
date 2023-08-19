@@ -24,16 +24,16 @@ USE `RdAccessTerminal`;
 DROP TABLE IF EXISTS `Access`;
 CREATE TABLE IF NOT EXISTS `Access` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `macAddress` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `macAddress` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `authorization` bigint unsigned DEFAULT NULL,
-  `code` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `code` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `creationDate` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `code` (`code`),
   KEY `macAddress` (`macAddress`),
   KEY `authorization` (`authorization`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `Authorization` (
   `ticket` varchar(250) DEFAULT NULL,
   `type` enum('allow','deny') DEFAULT 'allow',
   `codeCore` varchar(250) DEFAULT NULL,
-  `codePrefix` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `codePrefix` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `codeSuffix` varchar(250) DEFAULT NULL,
   `rangeStart` int DEFAULT NULL,
   `rangeEnd` int DEFAULT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `Authorization` (
   `updateDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `Config` (
   `creationDate` datetime DEFAULT CURRENT_TIMESTAMP,
   `updateDate` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`macAddress`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.
 
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `GlobalAccess` (
   `accessId` int DEFAULT NULL,
   `creationDate` datetime DEFAULT NULL,
   PRIMARY KEY (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.
 
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `Log` (
   `event` json NOT NULL,
   `exception` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.
 
