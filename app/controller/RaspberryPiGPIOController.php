@@ -3,7 +3,7 @@
 class RaspberryPiGPIOController
 {
     private $redLightPin = 24; /* LUZ VERMELHA BCM 19 GPIO 24 P 35 */
-    private $greenLightPin = 22; /* LUZ VERDE BCM 13 GPIO 22 P 33 */
+    private $greenLightPin = 23; /* LUZ VERDE BCM 13 GPIO 22 P 33 */
 
     private $solenoidPin = 21; /* SOLENOIDE BCM 5 GPIO 21 P 29 */
     private $microPin = 25; /* MICRO BCM 26 GPIO 25 P 37 */
@@ -19,8 +19,8 @@ class RaspberryPiGPIOController
     {
         exec("gpio mode {$this->redLightPin} out");
         exec("gpio mode {$this->greenLightPin} out");
-        exec("gpio mode {$this->microPin} out");
-        exec("gpio mode {$this->solenoidPin} in");
+        exec("gpio mode {$this->solenoidPin} out");
+        exec("gpio mode {$this->microPin} in");
     }
 
     private function write($target, $mode)
@@ -84,7 +84,7 @@ class RaspberryPiGPIOController
             case "invalid":
                 for ($i = 0; $i < 3; $i++) {
                     $this->write("red", "off");
-                    sleep(0.3);
+                    usleep(500);
                     $this->write("red", "on");
                 }
                 break;
@@ -92,16 +92,16 @@ class RaspberryPiGPIOController
                 for ($i = 0; $i < 3; $i++) {
                     $this->write("red", "off");
                     $this->write("green", "on");
-                    sleep(0.3);
+                    usleep(500);
                     $this->write("green", "off");
                     $this->write("red", "on");
-                    sleep(0.3);
+                    usleep(500);
                     $this->write("green", "on");
                     $this->write("red", "off");
-                    sleep(0.3);
+                    usleep(500);
                     $this->write("green", "off");
                     $this->write("red", "on");
-                    sleep(0.3);
+                    usleep(500);
                 }
                 break;
         }
