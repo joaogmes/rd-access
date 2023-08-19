@@ -17,7 +17,7 @@
 
 -- Copiando estrutura do banco de dados para RdAccessTerminal
 DROP DATABASE IF EXISTS `RdAccessTerminal`;
-CREATE DATABASE IF NOT EXISTS `RdAccessTerminal` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE IF NOT EXISTS `RdAccessTerminal` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb3_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `RdAccessTerminal`;
 
 -- Copiando estrutura para tabela RdAccessTerminal.Access
