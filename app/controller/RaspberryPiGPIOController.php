@@ -42,9 +42,9 @@ class RaspberryPiGPIOController
                 break;
             case 'solenoid';
                 if ($mode == "on") {
-                    exec("gpio write {$this->redLightPin} 1");
+                    exec("gpio write {$this->solenoidPin} 1");
                 } else {
-                    exec("gpio write {$this->redLightPin} 0");
+                    exec("gpio write {$this->solenoidPin} 0");
                 }
                 break;
         }
@@ -84,7 +84,7 @@ class RaspberryPiGPIOController
             case "invalid":
                 for ($i = 0; $i < 3; $i++) {
                     $this->write("red", "off");
-                    usleep(500);
+                    usleep(1000);
                     $this->write("red", "on");
                 }
                 break;
@@ -92,16 +92,16 @@ class RaspberryPiGPIOController
                 for ($i = 0; $i < 3; $i++) {
                     $this->write("red", "off");
                     $this->write("green", "on");
-                    usleep(500);
+                    usleep(1000);
                     $this->write("green", "off");
                     $this->write("red", "on");
-                    usleep(500);
+                    usleep(1000);
                     $this->write("green", "on");
                     $this->write("red", "off");
-                    usleep(500);
+                    usleep(1000);
                     $this->write("green", "off");
                     $this->write("red", "on");
-                    usleep(500);
+                    usleep(1000);
                 }
                 break;
         }
