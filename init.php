@@ -65,32 +65,8 @@ if ($configuration->authMode == "ticket") {
             continue;
         }
 
-        $scriptController->logMessage("Turning green light on", 2);
-        $gpioController->togglePin(19, "on"); /* green light up */
-
-        $scriptController->logMessage("Opening solenoid", 2);
-        $gpioController->togglePin(5, "on"); /* solenoid up */
-
-        $scriptController->logMessage("Waiting for micro", 2);
-        $gpioController->waitForGPIOHigh(26); /* wait for micro */
-
-        $scriptController->logMessage("Reseting", 2);
-        $gpioController->togglePin(19, "off"); /* turn green of */
-        $gpioController->togglePin(13, "on"); /* turn red on */
+        $scriptController->logMessage("Waiting activation");
+        $gpioController->throwSuccess();
         continue;
     }
 }
-
-/* 
-General rulees
-read code
-check code
-if has code = false
-if !has code...
-insert code
-blink green
-open vault
-wait solenoid
-fade green
-up red
-*/

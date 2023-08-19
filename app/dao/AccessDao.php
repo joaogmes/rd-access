@@ -10,4 +10,8 @@ class AccessDao extends Dao
         parent::__construct($table);
     }
 
+    public function simpleFilter($table, $field, $value){
+        return $this->simpleSearch($table, $field, $value);
+    }
+
 }

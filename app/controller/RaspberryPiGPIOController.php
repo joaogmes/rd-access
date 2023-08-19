@@ -11,35 +11,55 @@ class RaspberryPiGPIOController
 
     public function __construct()
     {
+        $this->configurePins();
+        $this->startStatus();
+    }
+
+    private function configurePins()
+    {
         exec("gpio mode {$this->redLightPin} out");
         exec("gpio mode {$this->greenLightPin} out");
         exec("gpio mode {$this->microPin} out");
-
         exec("gpio mode {$this->solenoidPin} in");
-        $this->togglePin($this->redLightPin, "on");
-        $this->togglePin($this->greenLightPin, "on");
     }
 
-    public function togglePin($pinNumber, $mode, $time = 0)
+    private function write($target, $mode)
     {
-        if ($mode !== 'on' && $mode !== 'off') {
-            print("Invalid mode. Use 'on' or 'off' to control the pin.\n");
-            return;
-        }
-
-        $command = "gpio write {$pinNumber} " . ($mode === 'on' ? '1' : '0');
-        print(PHP_EOL . $command . PHP_EOL);
-        exec($command);
-
-        if ($time > 0) {
-            sleep($time);
-            $this->togglePin($pinNumber, ($mode === 'on' ? 'off' : 'on'), 0);
+        switch ($target) {
+            case 'green';
+                if ($mode == "on") {
+                    exec("gpio write {$this->greenLightPin} 0");
+                } else {
+                    exec("gpio write {$this->greenLightPin} 1");
+                }
+                break;
+            case 'red';
+                if ($mode == "on") {
+                    exec("gpio write {$this->redLightPin} 0");
+                } else {
+                    exec("gpio write {$this->redLightPin} 1");
+                }
+                break;
+            case 'solenoid';
+                if ($mode == "on") {
+                    exec("gpio write {$this->redLightPin} 1");
+                } else {
+                    exec("gpio write {$this->redLightPin} 0");
+                }
+                break;
         }
     }
 
-    public function readInputPin($pinNumber)
+    private function startStatus()
     {
-        $currentState = exec("gpio read {$pinNumber}");
+        $this->write("red", "on");
+        $this->write("green", "off");
+        $this->write("solenoid", "off");
+    }
+
+    public function waitMicro()
+    {
+        $currentState = exec("gpio read {$microPin}");
         $startTime = time();
 
         while (true) {
@@ -57,63 +77,45 @@ class RaspberryPiGPIOController
             'duration' => $endTime - $startTime
         ];
     }
-    function waitForGPIOHigh($gpioPin)
-    {
-        if (!is_numeric($gpioPin) || $gpioPin < 0 || $gpioPin > 27) {
-            echo "Invalid GPIO pin number. Please provide a valid BCM GPIO number (0-27).\n";
-            return;
-        }
 
-        while (true) {
-            $currentState = exec("gpio read {$gpioPin}");
-
-            if ($currentState === '1') {
-                echo "GPIO {$gpioPin} is HIGH (1). Triggering the event or action...\n";
-                break;
-            }
-
-            sleep(0.1);
-        }
-    }
-    function throwError($error)
+    public function throwError($error)
     {
         switch ($error) {
             case "invalid":
-                /* Code format is no accepted */
-                /* Blink red lights 2 times */
-                $this->togglePin($this->redLightPin, "on", 1);
-                sleep(1);
-                $this->togglePin($this->redLightPin, "on", 1);
-                sleep(1);
-                $this->togglePin($this->redLightPin, "on", 1);
-                sleep(1);
-                $this->togglePin($this->redLightPin, "on", 1);
+                for ($i = 0; $i < 3; $i++) {
+                    $this->write("red", "off");
+                    sleep(0.3);
+                    $this->write("red", "on");
+                }
                 break;
             case "repeated":
-                /* Code format is no accepted */
-                /* Blink red lights 4 times */
-                $this->togglePin($this->redLightPin, "on", 1);
-                sleep(1);
-                $this->togglePin($this->redLightPin, "on", 1);
-                sleep(1);
-                $this->togglePin($this->redLightPin, "on", 1);
-                sleep(1);
-                $this->togglePin($this->redLightPin, "on", 1);
+                for ($i = 0; $i < 3; $i++) {
+                    $this->write("red", "off");
+                    $this->write("green", "on");
+                    sleep(0.3);
+                    $this->write("green", "off");
+                    $this->write("red", "on");
+                    sleep(0.3);
+                    $this->write("green", "on");
+                    $this->write("red", "off");
+                    sleep(0.3);
+                    $this->write("green", "off");
+                    $this->write("red", "on");
+                    sleep(0.3);
+                }
                 break;
         }
         return true;
     }
+
+    public function throwSuccess()
+    {
+        $this->write("red", "off");
+        $this->write("green", "on");
+        $this->write("solenoid", "on");
+
+        $this->waitMicro();
+
+        $this->startStatus();
+    }
 }
-
-// // Usage example:
-// $gpioController = new RaspberryPiGPIOController();
-
-// // Toggle output pin 17 on for 2 seconds
-// $gpioController->togglePin(17, 'on', 2);
-
-// // Usage example: Wait for GPIO 5 (BCM GPIO number) to become 1
-// $gpioController->waitForGPIOHigh(5);
-
-// // Read the state and duration of input pin 18
-// $result = $gpioController->readInputPin(18);
-// echo "Pin {$result['pinNumber']} is {$result['state']} for {$result['duration']} seconds.\n";
