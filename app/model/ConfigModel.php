@@ -15,16 +15,19 @@ class ConfigModel
 
     public function verifyTerminalSetup()
     {
-        $verifyQuery = "SELECT * FROM Config";
-        $configRegisters = $this->dao->list($verifyQuery);
-        if ($configRegisters['total'] != 1) {
-            $this->resetConfig();
-            if (is_numeric($this->setNewConfig())) {
-                return true;
+        while (true) {
+            $verifyQuery = "SELECT * FROM Config";
+            $configRegisters = $this->dao->list($verifyQuery);
+            if ($configRegisters['total'] != 1) {
+                $this->resetConfig();
+                $this->setNewConfig();
+                // if ($this->setNewConfig()) {
+                //     return true;
+                // }
+                // return false;
             }
-            return false;
+            return $configRegisters['results'][0];
         }
-        return $configRegisters['results'][0];
     }
 
     public function resetConfig()
@@ -36,6 +39,15 @@ class ConfigModel
     {
         $macAddress = trim(shell_exec("/sbin/ifconfig eth0 | grep -oE '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'"));
         $configInsert = "INSERT INTO `RdAccessTerminal`.`Config` (`macAddress`) VALUES ('{$macAddress}')";
-        return $this->dao->insert($configInsert);
+        if (!is_numeric($this->dao->insert($configInsert))) {
+            return false;
+        }
+
+        $authInsert = "INSERT INTO `RdAccessTerminal`.`Authorization` (`codePrefix`, `codeSuffix`, `rangeStart`, `rangeEnd`) VALUES ('123', '123', 1, 50)";
+        if (!is_numeric($this->dao->insert($authInsert))) {
+            return false;
+        }
+
+        return true;
     }
 }
