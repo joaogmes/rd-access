@@ -21,6 +21,7 @@ class ConfigModel
             if ($configRegisters['total'] != 1) {
                 $this->resetConfig();
                 $this->setNewConfig();
+                continue;
                 // if ($this->setNewConfig()) {
                 //     return true;
                 // }
