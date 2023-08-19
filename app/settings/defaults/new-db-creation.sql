@@ -31,7 +31,6 @@ CREATE TABLE IF NOT EXISTS `Access` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `code` (`code`),
-  KEY `macAddress` (`macAddress`),
   KEY `authorization` (`authorization`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
