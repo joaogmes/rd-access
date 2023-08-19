@@ -1,12 +1,5 @@
-#!/bin/bash
-
-# This script runs the specified commands.
-
-# Log the script start
-# echo "Script started" >> /home/joao/rd-access/init.log
+echo "Starting MYSQL..."
 sudo systemctl start mysql
-cd ~/rd-access/ && nohup php init.php &
-# Change directory to rd-access and run init.php using PHP in the background
-
-# Log completion (optional)
-# echo "Script completed" >> /home/joao/rd-access/init.log
+echo "Starting API..."
+tmux new-session -d -s catraca_api "cd /home/joao/rd-access && php -S localhost:8080"
+echo "Done!"
