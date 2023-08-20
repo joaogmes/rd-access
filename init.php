@@ -17,13 +17,17 @@ $gpioController = new RaspberryPiGPIOController();
 
 $configuration = $configController->checkSetup();
 
+function systemSignHandler($signo)
+{
+    /* This prevents ctrl+c from breaking the execution */
+}
+
+pcntl_signal(SIGINT, 'systemSignHandler');
+pcntl_signal(SIGTSTP, 'systemSignHandler');
+
 if ($configuration->authMode == "ticket") {
     while (true) {
-        if (isset($argv[1])) {
-            $codeString =$argv[1];
-        } else {
-            $codeString = trim(readline('# >_  Enter ticket code: '));
-        }
+        $codeString = trim(readline('# >_  Enter ticket code: '));
 
         if (is_null($codeString) || $codeString == "") {
             $scriptController->logMessage("Code is null, input a valid code '{$codeString}'");
