@@ -15,7 +15,8 @@ class AccessModel
 
     public function verifyAuthentication($code)
     {
-        $sql = "SELECT * FROM Authorization WHERE '{$code}' LIKE CONCAT(codePrefix, '%', codeSuffix) OR '{$code}' = CONCAT(codePrefix, codeCore, codeSuffix) ";
+        // $sql = "SELECT * FROM Authorization WHERE '{$code}' LIKE CONCAT(codePrefix, '%', codeSuffix) OR '{$code}' = CONCAT(codePrefix, codeCore, codeSuffix) ";
+        $sql = "SELECT * FROM Authorization WHERE '{$code}' LIKE CONCAT(codePrefix COLLATE utf8mb4_general_ci, '%', codeSuffix COLLATE utf8mb4_general_ci) OR '{$code}' = CONCAT(codePrefix COLLATE utf8mb4_general_ci, codeCore COLLATE utf8mb4_general_ci, codeSuffix COLLATE utf8mb4_general_ci)";
         $auths = $this->dao->list($sql);
         if ($auths['total'] > 0) {
             return $auths['results'][0];
