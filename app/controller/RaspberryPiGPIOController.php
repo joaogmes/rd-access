@@ -2,8 +2,8 @@
 
 class RaspberryPiGPIOController
 {
-    private $redLightPin = 24; /* LUZ VERMELHA BCM 19 GPIO 24 P 35 */
-    private $greenLightPin = 23; /* LUZ VERDE BCM 13 GPIO 22 P 33 */
+    private $redLightPin = 23; /* LUZ VERMELHA BCM 19 GPIO 24 P 35 */
+    private $greenLightPin = 24; /* LUZ VERDE BCM 13 GPIO 22 P 33 */
 
     private $solenoidPin = 21; /* SOLENOIDE BCM 5 GPIO 21 P 29 */
     private $microPin = 25; /* MICRO BCM 26 GPIO 25 P 37 */
