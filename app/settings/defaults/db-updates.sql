@@ -23,3 +23,10 @@ CREATE TABLE IF NOT EXISTS `Log` (
 	`exception` TEXT NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
 	PRIMARY KEY (`id`) USING BTREE
 ) COLLATE = 'utf8mb4_0900_ai_ci' ENGINE = InnoDB;
+
+ALTER TABLE
+	`Authorization`
+ADD
+	COLUMN `authType` ENUM('normal', 'master') NOT NULL DEFAULT 'normal'
+AFTER
+	`codeSuffix`;
