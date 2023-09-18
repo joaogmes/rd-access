@@ -48,30 +48,35 @@ if ($configuration->authMode == "ticket") {
             continue;
         }
 
-        $scriptController->logMessage("Checking local access...", 2);
-        $search = $accessController->searchAccessByCode($codeString);
-        if ($search) {
-            $scriptController->logMessage("Code already passed", 3);
-            $gpioController->throwError("repeated");
-            continue;
+        if($hasAuth->authType == 'normal') {
+
+            $scriptController->logMessage("Checking local access...", 2);
+            $search = $accessController->searchAccessByCode($codeString);
+            if ($search) {
+                $scriptController->logMessage("Code already passed", 3);
+                $gpioController->throwError("repeated");
+                continue;
+            }
+    
+            $scriptController->logMessage("Checking global access...", 2);
+            $globalSearch = $accessController->globalSearchAccessByCode($codeString);
+            if ($globalSearch) {
+                $scriptController->logMessage("Code already passed at {$globalSearch['date']} with id {$globalSearch['id']}", 3);
+                $gpioController->throwError("repeated");
+                continue;
+            }
+    
+            $scriptController->logMessage("Inserting code...", 2);
+            $access = $accessController->registerAccess($codeString, $hasAuth);
+    
+            if (!$access) {
+                $scriptController->logMessage("Error while registering access", 3);
+                $gpioController->throwError("fail");
+                continue;
+            }
+            
         }
 
-        $scriptController->logMessage("Checking global access...", 2);
-        $globalSearch = $accessController->globalSearchAccessByCode($codeString);
-        if ($globalSearch) {
-            $scriptController->logMessage("Code already passed at {$globalSearch['date']} with id {$globalSearch['id']}", 3);
-            $gpioController->throwError("repeated");
-            continue;
-        }
-
-        $scriptController->logMessage("Inserting code...", 2);
-        $access = $accessController->registerAccess($codeString, $hasAuth);
-
-        if (!$access) {
-            $scriptController->logMessage("Error while registering access", 3);
-            $gpioController->throwError("fail");
-            continue;
-        }
 
         $scriptController->logMessage("Waiting activation");
         $gpioController->throwSuccess();
