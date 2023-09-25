@@ -15,12 +15,45 @@ class AccessModel
 
     public function verifyAuthentication($code)
     {
-        // $sql = "SELECT * FROM Authorization WHERE '{$code}' LIKE CONCAT(codePrefix, '%', codeSuffix) OR '{$code}' = CONCAT(codePrefix, codeCore, codeSuffix) ";
-        // $sql = "SELECT * FROM Authorization WHERE '{$code}' LIKE CONCAT(codePrefix COLLATE utf8mb4_general_ci, '%', codeSuffix COLLATE utf8mb4_general_ci) OR '{$code}' = CONCAT(codePrefix COLLATE utf8mb4_general_ci, codeCore COLLATE utf8mb4_general_ci, codeSuffix COLLATE utf8mb4_general_ci)";
         $sql = "SELECT * FROM Authorization WHERE ('{$code}' LIKE CONCAT(codePrefix COLLATE utf8mb4_general_ci, '%', codeSuffix COLLATE utf8mb4_general_ci)) OR ('{$code}' = codeCore COLLATE utf8mb4_general_ci AND authType = 'master' )";
         $auths = $this->dao->list($sql);
         if ($auths['total'] > 0) {
-            return $auths['results'][0];
+
+            $verifiedAuth = [];
+            foreach ($auths['results'] as $authorization) {
+
+                $prefix = $authorization->codePrefix;
+                $suffix = $authorization->codeSuffix;
+
+                $core = str_replace($prefix, '', $code);
+                $core = intval(str_replace($suffix, '', $core));
+
+                if ($authorization->rangeEnd == null && $authorization->rangeStart == null) {
+                    return true;
+                }
+
+                if ($authorization->rangeEnd > 0) {
+                    $maxRangeLength = strlen((string) $authorization->rangeEnd);
+                    $formatedCore = str_pad($core, $maxRangeLength, '0', STR_PAD_LEFT);
+                }
+
+                if (
+                    $authorization->rangeStart >= 0 && $authorization->rangeEnd > $authorization->rangeStart
+                    && ($core >= $authorization->rangeStart && $core <= $authorization->rangeEnd)
+                ) {
+                    return true;
+                } else if (
+                    $authorization->rangeStart > 0 && ($authorization->rangeEnd == null || $authorization->rangeEnd == "")
+                    && ($core > $authorization->rangeStart)
+                ) {
+                    return true;
+                } else if (
+                    $authorization->rangeEnd > 0 && ($authorization->rangeStart == null || $authorization->rangeStart == "")
+                    && ($core > 0 && $core < $authorization->rangeEnd)
+                ) {
+                    return true;
+                }
+            }
         }
         return false;
     }
