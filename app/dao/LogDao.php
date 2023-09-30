@@ -1,7 +1,6 @@
 <?php
-
-require_once(app . '/core/Dao.php');
-
+namespace Dao\LogDao;
+use Dao\Dao;
 class LogDao extends Dao
 {
 

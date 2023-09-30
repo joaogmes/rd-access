@@ -1,6 +1,8 @@
 <?php
 
-require_once(app . '/dao/LogDao.php');
+namespace Model\Log;
+
+use Dao\LogDao\LogDao;
 
 class LogModel
 {
@@ -12,5 +14,4 @@ class LogModel
     {
         $this->dao = new LogDao($this->table);
     }
-
 }

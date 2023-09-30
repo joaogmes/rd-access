@@ -1,15 +1,16 @@
 <?php
 
-use PSpell\Config;
-
 define("root", __DIR__ . '/');
 define("app", root . 'app/');
 
 require_once(app . 'autoload.php');
-require_once(app .  "controller/ConfigController.php");
-require_once(app .  "controller/ScriptController.php");
-require_once(app .  "controller/AccessController.php");
 require_once(app .  "controller/RaspberryPiGPIOController.php");
+
+use PSpell\Config;
+use Controller\Config\ConfigController;
+use Controller\Script\ScriptController;
+use Controller\Access\AccessController;
+use Controller\Rasp\RaspberryPiGPIOController;
 
 $configController = new ConfigController();
 $scriptController = new ScriptController();
@@ -48,7 +49,7 @@ if ($configuration->authMode == "ticket") {
             continue;
         }
 
-        if($hasAuth->authType == 'normal') {
+        if ($hasAuth->authType == 'normal') {
 
             $scriptController->logMessage("Checking local access...", 2);
             $search = $accessController->searchAccessByCode($codeString);
@@ -57,7 +58,7 @@ if ($configuration->authMode == "ticket") {
                 $gpioController->throwError("repeated");
                 continue;
             }
-    
+
             $scriptController->logMessage("Checking global access...", 2);
             $globalSearch = $accessController->globalSearchAccessByCode($codeString);
             if ($globalSearch) {
@@ -65,16 +66,15 @@ if ($configuration->authMode == "ticket") {
                 $gpioController->throwError("repeated");
                 continue;
             }
-    
+
             $scriptController->logMessage("Inserting code...", 2);
             $access = $accessController->registerAccess($codeString, $hasAuth);
-    
+
             if (!$access) {
                 $scriptController->logMessage("Error while registering access", 3);
                 $gpioController->throwError("fail");
                 continue;
             }
-            
         }
 
 

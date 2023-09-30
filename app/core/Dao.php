@@ -1,6 +1,11 @@
 <?php
 
-require_once(app  . '/settings/Settings.php');
+namespace Dao;
+
+use Settings\Settings;
+use PDO;
+use PDOException;
+use Exception;
 
 class Dao extends Settings
 {

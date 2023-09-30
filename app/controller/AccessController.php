@@ -1,6 +1,9 @@
 <?php
 
-require_once(app . 'model/AccessModel.php');
+namespace Controller\Access;
+
+use Controller\Controller;
+use Model\Access\AccessModel;
 
 class AccessController extends Controller
 {

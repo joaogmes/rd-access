@@ -1,7 +1,10 @@
 <?php
 
-require_once(ROOT . '/app/controller' . "Controller.php");
-require_once(MODEL_PATH . "LoginModel.php");
+namespace Controller\Login;
+
+use Controller\Controller;
+use Model\Login\LoginModel;
+
 class LoginController extends Controller
 {
     public function index()

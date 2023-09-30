@@ -1,5 +1,7 @@
 <?php
 
+namespace Controller\Rasp;
+
 class RaspberryPiGPIOController
 {
     private $redLightPin = 23; /* LUZ VERMELHA BCM 19 GPIO 24 P 35 */

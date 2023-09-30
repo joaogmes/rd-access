@@ -1,5 +1,5 @@
 <?php
-
+namespace Controller;
 use Smarty\Smarty;
 
 class Controller

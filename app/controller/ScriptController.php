@@ -1,5 +1,9 @@
 <?php
 
+namespace Controller\Script;
+
+use Controller\Controller;
+
 class ScriptController extends Controller
 {
     public function __construct()

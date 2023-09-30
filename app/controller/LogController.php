@@ -1,6 +1,9 @@
 <?php
 
-require_once(app . 'model/LogModel.php');
+namespace Controller\Log;
+
+use Model\Log\LogModel;
+use Controller\Controller;
 
 class LogController extends Controller
 {

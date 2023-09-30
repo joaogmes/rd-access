@@ -1,6 +1,8 @@
 <?php
 
-require_once(app . '/core/Dao.php');
+namespace Dao\Access;
+
+use Dao\Dao;
 
 class AccessDao extends Dao
 {
@@ -10,8 +12,8 @@ class AccessDao extends Dao
         parent::__construct($table);
     }
 
-    public function simpleFilter($table, $field, $value){
+    public function simpleFilter($table, $field, $value)
+    {
         return $this->simpleSearch($table, $field, $value);
     }
-
 }

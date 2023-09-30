@@ -1,4 +1,7 @@
 <?php
+
+namespace Model\Login;
+
 class LoginModel
 {
     private $pdo;

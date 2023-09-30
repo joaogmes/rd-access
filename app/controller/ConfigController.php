@@ -1,6 +1,8 @@
 <?php
+namespace Controller\Config;
 
-require_once(app . 'model/ConfigModel.php');
+use Controller\Controller;
+use Model\Config\ConfigModel as Model;
 
 class ConfigController extends Controller
 {
@@ -9,7 +11,7 @@ class ConfigController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->model = new ConfigModel();
+        $this->model = new Model();
     }
 
     public function checkSetup()

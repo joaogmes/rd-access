@@ -1,5 +1,5 @@
 <?php
-
+namespace Settings;
 class Settings
 {
     public function getSettings()

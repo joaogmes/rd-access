@@ -1,6 +1,8 @@
 <?php
 
-require_once(app . '/core/Dao.php');
+namespace Dao\ConfigDao;
+
+use Dao\Dao;
 
 class ConfigDao extends Dao
 {
@@ -9,5 +11,4 @@ class ConfigDao extends Dao
     {
         parent::__construct($table);
     }
-
 }

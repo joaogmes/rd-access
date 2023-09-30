@@ -1,6 +1,8 @@
 <?php
 
-require_once(app . '/dao/ConfigDao.php');
+namespace Model\Config;
+
+use dao\ConfigDao\ConfigDao;
 
 class ConfigModel
 {

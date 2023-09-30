@@ -1,6 +1,8 @@
 <?php
 
-require_once(app . '/dao/AccessDao.php');
+namespace Model\Access;
+
+use Dao\Access\AccessDao;
 
 class AccessModel
 {
