@@ -10,15 +10,26 @@ class RaspberryPiGPIOController
     private $solenoidPin = 21; /* SOLENOIDE BCM 5 GPIO 21 P 29 */
     private $microPin = 25; /* MICRO BCM 26 GPIO 25 P 37 */
 
+    private $debugMode = 1;
 
     public function __construct()
     {
+        if ($this->debugMode) {
+            echo "\n ! >_ DEBUG MODE ON!!! \n";
+            return true;
+        }
+
         $this->configurePins();
         $this->startStatus();
     }
 
     private function configurePins()
     {
+        if ($this->debugMode) {
+            echo "\n ! >_ Configuring pins \n";
+            return true;
+        }
+
         exec("gpio mode {$this->redLightPin} out");
         exec("gpio mode {$this->greenLightPin} out");
         exec("gpio mode {$this->solenoidPin} out");
@@ -27,6 +38,11 @@ class RaspberryPiGPIOController
 
     private function write($target, $mode)
     {
+        if ($this->debugMode) {
+            echo "\n ! >_ Writing target {$target} in mode {$mode} \n";
+            return true;
+        }
+
         switch ($target) {
             case 'green';
                 if ($mode == "on") {
@@ -54,6 +70,11 @@ class RaspberryPiGPIOController
 
     private function startStatus()
     {
+        if ($this->debugMode) {
+            echo "\n ! >_ Settup lights: red on, green and blue off \n";
+            return true;
+        }
+
         $this->write("red", "on");
         $this->write("green", "off");
         $this->write("solenoid", "off");
@@ -61,6 +82,11 @@ class RaspberryPiGPIOController
 
     public function waitMicro()
     {
+        if ($this->debugMode) {
+            echo "\n ! >_ Pressing micro \n";
+            return true;
+        }
+
         $currentState = exec("gpio read {$this->microPin}");
         $startTime = time();
 
@@ -79,6 +105,11 @@ class RaspberryPiGPIOController
 
     public function throwError($error)
     {
+        if ($this->debugMode) {
+            echo "\n ! >_ Throwing error {$error} \n";
+            return true;
+        }
+
         switch ($error) {
             case "invalid":
                 for ($i = 0; $i < 3; $i++) {
@@ -104,6 +135,11 @@ class RaspberryPiGPIOController
 
     public function throwSuccess()
     {
+        if ($this->debugMode) {
+            echo "\n ! >_ Throwing success \n";
+            return true;
+        }
+
         $this->write("red", "off");
         $this->write("green", "on");
         $this->write("solenoid", "on");
