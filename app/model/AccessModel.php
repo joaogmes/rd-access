@@ -31,7 +31,7 @@ class AccessModel
                 $core = intval(str_replace($suffix, '', $core));
 
                 if ($authorization->rangeEnd == null && $authorization->rangeStart == null) {
-                    return true;
+                    return $authorization;
                 }
 
                 if ($authorization->rangeEnd > 0) {
@@ -43,17 +43,17 @@ class AccessModel
                     $authorization->rangeStart >= 0 && $authorization->rangeEnd > $authorization->rangeStart
                     && ($core >= $authorization->rangeStart && $core <= $authorization->rangeEnd)
                 ) {
-                    return true;
+                    return $authorization;
                 } else if (
                     $authorization->rangeStart > 0 && ($authorization->rangeEnd == null || $authorization->rangeEnd == "")
                     && ($core > $authorization->rangeStart)
                 ) {
-                    return true;
+                    return $authorization;
                 } else if (
                     $authorization->rangeEnd > 0 && ($authorization->rangeStart == null || $authorization->rangeStart == "")
                     && ($core > 0 && $core < $authorization->rangeEnd)
                 ) {
-                    return true;
+                    return $authorization;
                 }
             }
         }
@@ -81,7 +81,7 @@ class AccessModel
         $sql = "INSERT INTO Access (macAddress, authorization, code) VALUES ('{$macAddress}', '{$authorization->id}', '{$code}')";
         $insertAccess = $this->dao->insert($sql);
         if (is_numeric($insertAccess)) {
-            return true;
+            return $authorization;
         }
         return false;
     }
