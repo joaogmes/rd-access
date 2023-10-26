@@ -2,6 +2,9 @@
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+// use PSpell\Config;
+
+use Controller\Config\ConfigController as Config;
 
 $app->get('/', function (Request $request, Response $response) {
 
@@ -16,6 +19,7 @@ $app->get('/', function (Request $request, Response $response) {
 });
 
 $app->get('/access/{id}', function (Request $request, Response $response, array $args) {
+    $configController = new Config();
     var_dump($args);
     die('teste');
 });
