@@ -7,4 +7,5 @@
         <li>{$entity->code}</li>
     {/foreach}
 </ul>
+<p>Parágrafo</p>
 {include file="bs-footer.tpl"}

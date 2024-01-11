@@ -1,5 +1,4 @@
 <?php
-
 namespace Controller\Access;
 
 use Controller\Controller;
@@ -17,8 +16,8 @@ class AccessController extends Controller
 
     public function index()
     {
-        $list = $this->model->list();
-        $this->assign("accessList", $list);
+        // $list = $this->model->list();
+        // $this->assign("accessList", $list);
         $this->display('index.tpl');
     }
 
