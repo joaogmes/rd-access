@@ -673,6 +673,4 @@ vendor/smarty/smarty/libs/sysplugins/smarty_undefined_variable.php
 vendor/smarty/smarty/libs/sysplugins/smarty_variable.php
 vendor/smarty/smarty/libs/sysplugins/smartycompilerexception.php
 vendor/smarty/smarty/libs/sysplugins/smartyexception.php
-app/view/templates_c/31bd2f32c90f0cba476b782f69c098550308e3cb_0.file.index.tpl.php
-app/view/templates_c/ce7b9077f08cbe3abf31d0c205c88e6cbe924ce4_0.file.bs-header.tpl.php
-app/view/templates_c/e26285e27d8141bed752bd1525d9307b1a799b40_0.file.bs-footer.tpl.php
+app/view/templates_c/
