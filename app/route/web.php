@@ -5,15 +5,30 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 // use PSpell\Config;
 
 use Controller\Config\ConfigController as Config;
+use Controller\Controller;
+use Controller\Access\AccessController;
+use Controller\Authorization\AuthorizationController;
 
 $app->get('/', function (Request $request, Response $response) {
+    
+    $access = new AuthorizationController();
+  
+    $access->index();
+    // $response->getBody()->write($testVal);
+    return $response;
+});
+$app->get('/authorization', function (Request $request, Response $response) {
 
-    $response->getBody()->write("zap zap");
-    die;
-    include_once(app . 'controller/AccessController.php');
-    $access = new AccessController();
+    $access = new AuthorizationController();
     $access->index();
     // $model = new Model("Access");
+    // $response->getBody()->write($testVal);
+    return $response;
+});
+$app->get('/authorization/create', function (Request $request, Response $response) {
+
+    $access = new AuthorizationController();
+    $access->display('authorization-create.tpl');
     // $response->getBody()->write($testVal);
     return $response;
 });

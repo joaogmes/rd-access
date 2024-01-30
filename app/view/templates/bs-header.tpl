@@ -29,6 +29,15 @@
             {/if}
         {/foreach}
     {/if}
+
+
 </head>
 
 <body>
+    <div class="container my-5">
+        <div class="bg-dark text-white p-5">
+            <div class="row">
+                <h2>Adicionar Catraca <span class="badge badge-secondary">v 1.0.0 Bruno F</span></h2>
+            </div>
+        </div>
+    </div>

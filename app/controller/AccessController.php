@@ -19,7 +19,8 @@ class AccessController extends Controller
     {
         $list = $this->model->list();
         $this->assign("accessList", $list);
-        $this->display('index.tpl');
+
+         $this->display('index.tpl');
     }
 
     public function searchAccessByCode($code)
