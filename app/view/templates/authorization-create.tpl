@@ -8,7 +8,7 @@
         <div class="card">
   
             <div class="card-body">
-                <form class="form-horizontal" action="create.php" method="post">
+                <form class="form-horizontal"  method="post">
 
                     <div class="control-group">
                         <label class="control-label">ID</label>
@@ -89,9 +89,10 @@
 
                     <div class="form-actions">
                         <br/>
-                        <button type="submit" class="btn btn-success">Adicionar</button>
+                        <button type="submit" method ="POST"  class="btn btn-success">Adicionar</button>
                         <a href="/" type="btn" class="btn btn-default">Voltar</a>
                     </div>
+                    {$msg}
                 </form>
             </div>
         </div>

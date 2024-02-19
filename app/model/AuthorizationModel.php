@@ -21,6 +21,32 @@ class AuthorizationModel
 
         return  $auths;
     }
+
+    public function createAuthorization($data)
+    {
+        $ticket = isset($data['ticket']) && $data['ticket'] !== '' ? $data['ticket'] : '';
+        $type = isset($data['type']) && $data['type'] !== '' ? $data['type'] : 'allow';
+        $codeCore = isset($data['codecore']) && $data['codecore'] !== '' ? $data['codecore'] : '';
+        $codePrefix = isset($data['codeprefix']) && $data['codeprefix'] !== '' ? $data['codeprefix'] : '';
+        $codeSuffix = isset($data['codesuffix']) && $data['codesuffix'] !== '' ? $data['codesuffix'] : '';
+        $authType = isset($data['authtype']) && $data['authtype'] !== '' ? $data['authtype'] : 'normal';
+        $rangeStart = isset($data['rangestart']) && $data['rangestart'] !== '' ? $data['rangestart'] : 1;
+        $rangeEnd = isset($data['rangeend']) && $data['rangeend'] !== '' ? $data['rangeend'] : 1;
+        $creationDate = isset($data['creationdate']) && $data['creationdate'] !== '' ? $data['creationdate'] : date('Y-m-d H:i:s');
+        $updateDate = isset($data['updatedate']) && $data['updatedate'] !== '' ? $data['updatedate'] : date('Y-m-d H:i:s');
+        
+        $sql = "INSERT INTO Authorization (ticket, `type`, codeCore, codePrefix, codeSuffix, authType, rangeStart, rangeEnd, creationDate, updateDate) 
+                VALUES ('{$ticket}', '{$type}', '{$codeCore}', '{$codePrefix}', '{$codeSuffix}', '{$authType}', '{$rangeStart}', '{$rangeEnd}', '{$creationDate}', '{$updateDate}')";
+        // var_dump($sql);
+        // exit();
+        $insertAuthorization = $this->dao->insert($sql);
+    
+        if (is_numeric($insertAuthorization)) {
+            return true;
+        }
+    
+        return false;
+    }
     public function verifyAuthentication($code)
     {
         $sql = "SELECT * FROM Authorization WHERE ('{$code}' LIKE CONCAT(codePrefix COLLATE utf8mb4_general_ci, '%', codeSuffix COLLATE utf8mb4_general_ci)) OR ('{$code}' = codeCore COLLATE utf8mb4_general_ci AND authType = 'master' )";

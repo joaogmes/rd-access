@@ -16,4 +16,5 @@ class AuthorizationDao extends Dao
     {
         return $this->simpleSearch($table, $field, $value);
     }
+
 }

@@ -24,14 +24,17 @@ class AuthorizationController extends Controller
 
 
     }
-    public function create()
+    public function create($data)
     {
-         $list = $this->model->listAuthorization();
+         $create = $this->model->createAuthorization($data);
         //  var_dump($list);
         //  exit();
-         $this->assign("accessList", $list); // joga variavel no template*
-        $this->display('index.tpl');
-
+        if($create){
+           return 'Cadastro realizado';
+        }else{
+           return 'Ocorreu um erro';
+        }
+      
 
     }
 

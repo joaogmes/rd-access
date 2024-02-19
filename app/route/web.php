@@ -33,6 +33,18 @@ $app->get('/authorization/create', function (Request $request, Response $respons
     return $response;
 });
 
+$app->post('/authorization/create', function (Request $request, Response $response, array $args) {
+    //var_dump($args);
+    $data= $request->getParsedBody();
+    $access = new AuthorizationController();
+    $create = $access->create($data);
+    $access->assign("msg", $create); 
+    $access->display('authorization-create.tpl');
+    
+    // print_r($response);
+    die('teste');
+});
+
 $app->get('/access/{id}', function (Request $request, Response $response, array $args) {
     $configController = new Config();
     var_dump($args);
